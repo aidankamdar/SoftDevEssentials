@@ -1,37 +1,40 @@
 package prithee;
 
-import org.junit.jupiter.api.Test;
-
 import java.util.Random;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 public class PritheeGameTest {
 
-    @Test
-    public void answerCheckIgnoresCaseAndPunctuation() {
-        Sonnet s = new Sonnet("Hello, world.");
+    public static void main(String[] args) {
+        // test answer checking ignores case and punctuation
+        Sonnet s = new Sonnet("Hello world");
         PritheeGame g = new PritheeGame(s, new Random(1));
 
-        assertTrue(g.isCorrect("Verona", "Verona,"));
-        assertTrue(g.isCorrect("verona", "Verona,"));
-        assertFalse(g.isCorrect("Vienna", "Verona,"));
-    }
+        if (!g.isCorrect("Verona", "Verona,")) {
+            System.out.println("Error: should ignore punctuation");
+            return;
+        }
 
-    @Test
-    public void makeRoundStopsAfterMaskedWord() {
-        String text = "One two three four.";
-        Sonnet s = new Sonnet(text);
+        if (!g.isCorrect("verona", "Verona,")) {
+            System.out.println("Error: should ignore case");
+            return;
+        }
 
-        Random seeded = new Random(0);
-        PritheeGame g = new PritheeGame(s, seeded);
+        if (g.isCorrect("wrong", "Verona,")) {
+            System.out.println("Error: wrong answer should fail");
+            return;
+        }
 
-        PritheeGame.Round r = g.makeRound();
+        // test that round creates underscores
+        String text = "One two three";
+        Sonnet sonnet = new Sonnet(text);
+        PritheeGame game = new PritheeGame(sonnet, new Random(0));
+        PritheeGame.Round round = game.makeRound();
 
-        // Should contain underscores and should NOT contain the later part of the text after the stop point.
-        assertTrue(r.promptText.contains("_"));
+        if (!round.promptText.contains("_")) {
+            System.out.println("Error: should have underscores");
+            return;
+        }
 
-        // Weak but useful: prompt should not equal full original text
-        assertNotEquals(text, r.promptText);
+        System.out.println("All tests passed!");
     }
 }

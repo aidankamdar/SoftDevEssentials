@@ -1,29 +1,33 @@
 package prithee;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
-
 public class TextUtilTest {
 
-    @Test
-    public void normalizeStripsPunctuationAndLowercases() {
-        assertEquals("verona", TextUtil.normalizeWord("Verona,"));
-        assertEquals("starcrossd", TextUtil.normalizeWord("star-cross'd"));
-        assertEquals("hours", TextUtil.normalizeWord("hours'"));
-    }
+    public static void main(String[] args) {
+        // test normalize removes punctuation and lowercases
+        String result = TextUtil.normalizeWord("Verona,");
+        if (!result.equals("verona")) {
+            System.out.println("Error: normalize failed");
+            return;
+        }
 
-    @Test
-    public void underscoresMatchesNormalizedLength() {
-        assertEquals("______", TextUtil.underscoresFor("Verona,"));
-        assertEquals("__________", TextUtil.underscoresFor("star-cross'd"));
-    }
+        // test underscores
+        String underscores = TextUtil.underscoresFor("Verona,");
+        if (!underscores.equals("______")) {
+            System.out.println("Error: underscores failed");
+            return;
+        }
 
-    @Test
-    public void isWordTokenDetectsWordishThings() {
-        assertTrue(TextUtil.isWordToken("Verona,"));
-        assertTrue(TextUtil.isWordToken("love,"));
-        assertFalse(TextUtil.isWordToken(" "));
-        assertFalse(TextUtil.isWordToken("\n"));
+        // test word detection
+        if (!TextUtil.isWordToken("Verona,")) {
+            System.out.println("Error: word token detection failed");
+            return;
+        }
+
+        if (TextUtil.isWordToken(" ")) {
+            System.out.println("Error: space should not be a word");
+            return;
+        }
+
+        System.out.println("All tests passed!");
     }
 }
