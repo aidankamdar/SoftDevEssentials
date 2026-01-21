@@ -1,9 +1,9 @@
-# Prithee (HW1)
+Prithee (HW1)
 
-## Overview
+Overview
 This program prints a fixed sonnet, stops at a random word, replaces that word with underscores, and stops printing the rest. The user must type the next word. The game continues until the user gets 3 correct or 3 incorrect.
 
-## Design
+Design
 - `Sonnet` stores the source text and tokenizes it into "word tokens" while preserving punctuation.
 - `TextUtil` provides:
   - normalization (lowercase, strip punctuation)
@@ -14,13 +14,8 @@ This program prints a fixed sonnet, stops at a random word, replaces that word w
   - prompts and checks user input
   - tracks correct/incorrect counts
 
-## How to Run
-In IntelliJ: run `Main`.
-From terminal:
-- Compile: `javac -d out src/main/java/prithee/*.java`
-- Run: `java -cp out prithee.Main`
 
-## Testing
+Testing
 The project includes JUnit tests that verify:
 - normalization and punctuation handling
 - masking output stops correctly
