@@ -1,33 +1,27 @@
 package prithee;
 
-public class TextUtilTest {
+class TextUtilTest {
 
-    public static void main(String[] args) {
-        // test normalize removes punctuation and lowercases
+    void normalizeRemovesPunctuation() {
         String result = TextUtil.normalizeWord("Verona,");
         if (!result.equals("verona")) {
-            System.out.println("Error: normalize failed");
-            return;
+            System.out.println("FAIL: normalize failed");
         }
+    }
 
-        // test underscores
-        String underscores = TextUtil.underscoresFor("Verona,");
-        if (!underscores.equals("______")) {
-            System.out.println("Error: underscores failed");
-            return;
+    void underscoresMatchLength() {
+        String result = TextUtil.underscoresFor("Verona,");
+        if (!result.equals("______")) {
+            System.out.println("FAIL: underscores failed");
         }
+    }
 
-        // test word detection
+    void isWordTokenDetectsWords() {
         if (!TextUtil.isWordToken("Verona,")) {
-            System.out.println("Error: word token detection failed");
-            return;
+            System.out.println("FAIL: word detection failed");
         }
-
         if (TextUtil.isWordToken(" ")) {
-            System.out.println("Error: space should not be a word");
-            return;
+            System.out.println("FAIL: space should not be a word");
         }
-
-        System.out.println("All tests passed!");
     }
 }
