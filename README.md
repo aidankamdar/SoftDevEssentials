@@ -1,3 +1,4 @@
+Aidan Kamdar, Jan 23, 2026
 Prithee (HW1)
 
 Overview
